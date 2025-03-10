@@ -3,3 +3,6 @@ git config --global user.email carlosfilhocontato2008@gmail.com
 
 criar projeto Reactive Native com Expo:
 npx create-expo-app@latest SilvinhaHealthApp --template blank
+
+inicar o projeto:
+npx expo start --localhost --android
