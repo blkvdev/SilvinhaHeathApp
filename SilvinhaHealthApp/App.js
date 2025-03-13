@@ -1,5 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
-import { SafeAreaView, StyleSheet, Text, View, TextInput } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import Ionicons from "@expo/vector-icons/Ionicons"
 
 export default function App() {
   return (
@@ -27,9 +28,13 @@ export default function App() {
         placeholder='Ex. 70.500'
         keyboardType='numeric'
         />
-
-
       </View>
+      <TouchableOpacity style={styles.button}
+      onPress={() => alert('ahhhhhhhhhh')}> 
+        
+        <Ionicons name={"calculator-sharp"} size={24} color="#fff" />
+        <Text style={styles.text}>Calcular</Text>
+      </TouchableOpacity>
 
       </View>
       
@@ -84,5 +89,21 @@ const styles = StyleSheet.create({
     borderWidth: 3,
     borderRadius: 18,
     marginVertical: 5
+  },
+  button: {
+    width: '100%',
+    paddingVertical: 15,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#A020F0',
+    borderRadius: 100,
+    marginTop: 18,
+    marginBottom: 10
+  },
+  text:{
+    color: '#ffff',
+    fontSize: 20,
+    marginLeft: 5
   }
 });
