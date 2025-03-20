@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { SafeAreaView, StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, View, TextInput, TouchableOpacity, Keyboard } from 'react-native';
 import Ionicons from "@expo/vector-icons/Ionicons"
 
 export default function App() {
@@ -9,6 +9,30 @@ export default function App() {
   const [imc, setImc] = useState(null);
   const [textButton, setTextButton] = useState ("Calcular");
   const [messageImc, setMessageImc] = useState("Preencha o peso e a altura");
+  
+  function imcCalculator(){
+    // (peso / (altura*altura))
+    setImc((weight/(height*height)).toFixed(2))
+  }
+
+  function validateImc(){
+    if (weight != null && height != null)
+    {
+      Keyboard.dismiss();
+      imcCalculator();
+      setHeight(null);
+      setWeight(null);
+      setTextButton("Calcular Novamente");
+      setMessageImc("Seu   IMC é igual a: ");
+      return;
+    }
+    setImc(null);
+    setTextButton("calcular");
+    setMessageImc("Preencha o peso e a altura")
+
+
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.titleBox}>
@@ -21,6 +45,8 @@ export default function App() {
         <Text style={styles.label}>ALTURA</Text>
         <TextInput
         style={styles.input}
+        onChangeText={setHeight}
+        value={height ?? ''}
         placeholder='Ex. 1.70'
         keyboardType='numeric'
         />
@@ -30,16 +56,18 @@ export default function App() {
       <View style={{marginTop: 15}}>
         <Text style={styles.label}>PESO</Text>
         <TextInput
+        onChangeText={setWeight}
+        value={weight ?? ''}
         style={styles.input}
         placeholder='Ex. 70.500'
         keyboardType='numeric'
         />
       </View>
       <TouchableOpacity style={styles.button}
-      onPress={() => alert('ahhhhhhhhhh')}> 
+      onPress={() => validateImc()}> 
         
         <Ionicons name={"calculator-sharp"} size={24} color="#fff" />
-        <Text style={styles.text}>Calcular</Text>
+        <Text style={styles.text}>{textButton}</Text>
       </TouchableOpacity>
       
       <View style={styles.imcContainer}>
